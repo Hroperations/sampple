@@ -1,5 +1,7 @@
 package com.virtusa.controller;
 
+import java.sql.SQLException;
+
 import com.virtusa.factory.UserFactory;
 import com.virtusa.model.UserModel;
 import com.virtusa.service.UserService;
@@ -33,7 +35,16 @@ public class Controller {
 			admin.adminMainView();
 		}else if(userType.contentEquals("HR")) {
 			HrView hr=new HrView();
-			hr.hrView();
+			try {
+				hr.hrView();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}else if(userType.contentEquals("INTERVIEWER")) {
 			InterviewerView interviewer=new InterviewerView();
 			interviewer.interviewerView();

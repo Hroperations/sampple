@@ -17,14 +17,15 @@ public class HrController {
 		this.hrService=
 				FactoryHrService.createHrService();
 	}
-	public void retrieveManager(int deptId, String designation) throws ClassNotFoundException, SQLException {
-		List<HrModel> hr=hrService.retrieveManager(deptId,designation);
+	public void retrieveManager() throws ClassNotFoundException, SQLException {
+		HrView hrView=new HrView();
+		List<HrModel> hr=hrService.retrieveManager();
 	
-		employeeView.showManager(hr);
+		hrView.showManager(hr);
 		
 	}
 	public void storeInterviewDetails(HrModel hrModel) throws ClassNotFoundException, SQLException {
-		boolean result=HrService.storeInterviewService(hrModel);
+		boolean result=hrService.storeInterviewService(hrModel);
 		HrView hrView=new HrView();
 		if(result){
 			hrView.storeSuccessful();
@@ -34,4 +35,11 @@ public class HrController {
 		}
 		
 	}
+	public void resultUpdate() throws ClassNotFoundException, SQLException {
+        // TODO Auto-generated method stub
+        HrView hrView=new HrView();
+        List<HrModel> hrModelList=hrService.retrieveResultUpdate();
+        hrView.displayResultUpdate(hrModelList);
+    }
+ 
 }
