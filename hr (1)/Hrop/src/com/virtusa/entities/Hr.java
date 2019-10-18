@@ -6,6 +6,7 @@ public Hr() {
 		
 	}
 	private String hrId;
+	private String resultUpdate;
 	public String getHrId() {
 		return hrId;
 	}
@@ -14,7 +15,14 @@ public Hr() {
 	}
 	@Override
 	public String toString() {
-		return "Hr [hrId=" + hrId + "]";
+		return "Hr [hrId=" + hrId + ", resultUpdate=" + resultUpdate + "]";
 	}
+	public String getResultUpdate() {
+		return resultUpdate;
+	}
+	public void setResultUpdate(String resultUpdate) {
+		this.resultUpdate = resultUpdate;
+	}
+	
 	
 }

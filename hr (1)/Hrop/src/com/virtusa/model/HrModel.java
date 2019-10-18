@@ -10,7 +10,21 @@ public class HrModel {
 	private String interviewId;
 	private LocalDate interviewDate;
 	private String interviewVenue;
+	private String resultUpdate;
+	private String userName;
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getResultUpdate() {
+		return resultUpdate;
+	}
+	public void setResultUpdate(String resultUpdate) {
+		this.resultUpdate = resultUpdate;
+	}
 	public String getInterviewId() {
 		return interviewId;
 	}
@@ -60,7 +74,7 @@ public class HrModel {
 	public String toString() {
 		return "HrModel [employeeId=" + employeeId + ", userId=" + userId + ", designation=" + designation + ", deptId="
 				+ deptId + ", interviewId=" + interviewId + ", interviewDate=" + interviewDate + ", interviewVenue="
-				+ interviewVenue + "]";
+				+ interviewVenue + ", resultUpdate=" + resultUpdate + ", userName=" + userName + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -72,7 +86,9 @@ public class HrModel {
 		result = prime * result + ((interviewDate == null) ? 0 : interviewDate.hashCode());
 		result = prime * result + ((interviewId == null) ? 0 : interviewId.hashCode());
 		result = prime * result + ((interviewVenue == null) ? 0 : interviewVenue.hashCode());
+		result = prime * result + ((resultUpdate == null) ? 0 : resultUpdate.hashCode());
 		result = prime * result + userId;
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 	@Override
@@ -108,7 +124,17 @@ public class HrModel {
 				return false;
 		} else if (!interviewVenue.equals(other.interviewVenue))
 			return false;
+		if (resultUpdate == null) {
+			if (other.resultUpdate != null)
+				return false;
+		} else if (!resultUpdate.equals(other.resultUpdate))
+			return false;
 		if (userId != other.userId)
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

@@ -8,6 +8,7 @@ import com.virtusa.dao.HrDAO;
 import com.virtusa.entities.Employee;
 import com.virtusa.entities.Hr;
 import com.virtusa.entities.Interview;
+import com.virtusa.entities.User;
 import com.virtusa.factory.FactoryHrDAO;
 import com.virtusa.model.HrModel;
 
@@ -17,26 +18,19 @@ public class HrServiceImpl implements HrService {
 	public HrServiceImpl() {
 		this.hrDAO=FactoryHrDAO.createHrDAO();
 	}
-	@Override
-	public List<HrModel> retrieveManager(int deptId,String designation) throws ClassNotFoundException,SQLException{
-		// TODO Auto-generated method stub
-		List<HrModel> hrModelList=new ArrayList<>();
-		try {
-			List<Employee> employeeList=hrDAO.getManager(deptId, designation);
-			for(Employee employee:employeeList) {
-			
-				HrModel hrModel=new HrModel();
-				hrModel.setEmployeeId(employee.getEmployeeId());
-				hrModel.setDesignation(employee.getDesignation());
-				hrModelList.add(hrModel);
-				
-			}
-			
-		}catch(ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		return hrModelList;
-	}
+	  @Override
+	    public List<HrModel> retrieveManager() throws ClassNotFoundException, SQLException {
+	        User user=new User();
+	        List<User> userNameList=hrDAO.assignManager();
+	        List<HrModel> userModelList=new ArrayList<HrModel>();
+	        for(User user1:userNameList){
+	           
+	            HrModel userMdl=new HrModel();
+	            userMdl.setUserName(user1.getUserName());
+	            userModelList.add(userMdl);
+	        }
+	        return userModelList;
+	    }
 	public boolean storeInterviewService(HrModel hrModel) throws ClassNotFoundException, SQLException {
 		Hr hr=new Hr();
 		
@@ -46,6 +40,19 @@ public class HrServiceImpl implements HrService {
 		interview.setInterviewVenue(hrModel.getInterviewVenue());
 		
 		return hrDAO.persistInterview(hr);
+	}
+	@Override
+	public List<HrModel> retrieveResultUpdate() throws ClassNotFoundException, SQLException {
+
+		   List<Hr> resultUpdateStatusList=hrDAO.viewResultUpdate();
+	        List<HrModel> hrModelList=new ArrayList<HrModel>();
+	        for(Hr hr:resultUpdateStatusList) {
+	            HrModel hrMdl=new HrModel();
+	            hrMdl.setResultUpdate(hr.getResultUpdate());
+	            hrModelList.add(hrMdl);
+	        }
+	        return hrModelList;
+		
 	}
 
 }

@@ -40,7 +40,7 @@ public class UserRepository {
 		userRepository.add(admin);
 		
 		Hr hr=new Hr();
-		hr.setUserName("humanresource");
+		hr.setUserName("hr");
 		hr.setPassword("hr@123");
 		hr.setFirstName("virat");
 		hr.setLastName("kohli");

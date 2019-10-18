@@ -45,10 +45,11 @@ public class HrView {
 		
 	}
 
-	private void sendResultUpdate() {
+	private void sendResultUpdate() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		
-	}
+		HrController hrController=new HrController();
+		hrController.resultUpdate();
+ 	}
 
 	private void sendInterviewDetailsToApplicant() throws ClassNotFoundException, SQLException {
         
@@ -64,9 +65,10 @@ public class HrView {
 			tokensList.add(tokens.nextToken());
 		}
 		
-		int dayOfMonth=Integer.parseInt(tokensList.get(0));
+        int year=Integer.parseInt(tokensList.get(0));
 		int month=Integer.parseInt(tokensList.get(1));
-		int year=Integer.parseInt(tokensList.get(2));
+		int dayOfMonth=Integer.parseInt(tokensList.get(2));
+		
 		
 		LocalDate interviewDate=LocalDate.of(year, month-1, dayOfMonth);
 		System.out.println("Enter interview venue");
@@ -83,15 +85,11 @@ public class HrView {
 		
 	}
 
-	private void assignManager() {
+	private void assignManager() throws ClassNotFoundException,SQLException {
 		HrController hrController=new HrController();
 		  
 		  try(Scanner scanner=new Scanner(System.in);){
-			  System.out.println("Please Enter Department Id:");
-			  int deptId=scanner.nextInt();
-			  System.out.println("Please Enter Designation:");
-			  String designation=scanner.next();
-		      hrController.retrieveManager(deptId,designation);
+		      hrController.retrieveManager();
 			  
 			  
 		  }catch(Exception e) {
@@ -113,11 +111,29 @@ public class HrView {
 	}
 public void storeSuccessful(){
 		
-		System.out.println("Details Updated successful");
+		System.out.println("Details Updated successfully");
 	}
 	
     public void storeUnSuccessful(){
 		
 		System.out.println("Unable to Store");
 	}
+ 
+
+	public void displayResultUpdate(List<HrModel> hrModelList) {
+		 for (HrModel hrModel :hrModelList) {
+	            System.out.println("\n Result Status:"+hrModel.getResultUpdate());
+	        }
+	}
+	public void showManager(List<HrModel> hr)
+    {
+        for(HrModel hrModel :hr){
+           
+            System.out.print("\n Manager List:"+hrModel.getUserName());
+           
+       
+        }
+       
+    }
 }
+

@@ -10,8 +10,10 @@ public class DataSource {
 	private String password;
 	
 	public DataSource() {
+	
 		ResourceBundle resourceBundle=
 				ResourceBundle.getBundle("DB");
+		
 		
 		this.driver=resourceBundle.getString("driver");
 		this.url=resourceBundle.getString("url");

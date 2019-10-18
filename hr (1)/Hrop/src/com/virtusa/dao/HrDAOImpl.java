@@ -11,30 +11,28 @@ import java.util.List;
 import com.virtusa.entities.Employee;
 import com.virtusa.entities.Hr;
 import com.virtusa.entities.Interview;
+import com.virtusa.entities.User;
 import com.virtusa.integrate.ConnectionManager;
 
 public class HrDAOImpl implements HrDAO {
 
+	   User user=new User();
 	@Override
-	public List<Employee> getManager(int deptid,String designation) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		Connection connection=ConnectionManager.openConnection();
-		PreparedStatement statement=connection.prepareStatement("select employeeid,designation\r\n"+
-				"from employee\r\n"+
-				"where deptid=? and designation=?;"
-				);
-		statement.setInt(1, deptid);
-		statement.setString(2, designation);
-		ResultSet resultSet=statement.executeQuery();
-		List<Employee> employeeList=new ArrayList<Employee>();
-		while(resultSet.next()) {
-			Employee employee=new Employee();
-			employee.setEmployeeId(resultSet.getInt("employeeId"));
-			employee.setDesignation(resultSet.getString("designation"));
-			employeeList.add(employee);
-		}
-		ConnectionManager.closeConnection();
-		return employeeList;
+	public List<User> assignManager() throws ClassNotFoundException, SQLException {
+
+			     Connection connection=ConnectionManager.openConnection();
+          PreparedStatement statement=connection.prepareStatement("select u.userName from users u join employee e on u.userId=e.userId and  designation='Manager'");
+		            ResultSet resultSet=statement.executeQuery();
+		            List<User> userList=new ArrayList<>();
+		            while(resultSet.next()) {
+		               
+		                user.setUserName(resultSet.getString("userName"));
+		                userList.add(user);
+		            }   
+		                  ConnectionManager.closeConnection();
+		                 
+		                return userList;
+		
 	}
 
 	@Override
@@ -59,5 +57,24 @@ public class HrDAOImpl implements HrDAO {
 	
 		return false;
 	}
+
+	@Override
+	public List<Hr> viewResultUpdate() throws ClassNotFoundException, SQLException {
+        Connection connection=null;
+        connection = ConnectionManager.openConnection();
+        PreparedStatement statement=
+                connection.prepareStatement("select resultUpdate from applicant");
+        ResultSet resultSet=
+                statement.executeQuery();
+        List<Hr>    resultUpdateList=new ArrayList<Hr>();
+        while(resultSet.next()) {
+            Hr hr=new Hr();
+            hr.setResultUpdate(resultSet.getString(1));
+            resultUpdateList.add(hr);
+        }
+    return resultUpdateList;
+	}
+
+
 
 }

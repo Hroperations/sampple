@@ -7,8 +7,10 @@ import com.virtusa.model.HrModel;
 
 public interface HrService {
 
-	public List<HrModel> retrieveManager(int deptId,String designation) throws ClassNotFoundException,SQLException;
+   public List<HrModel> retrieveManager() throws ClassNotFoundException,SQLException;
 
 	public boolean storeInterviewService(HrModel hrModel) throws ClassNotFoundException, SQLException;
+
+	public List<HrModel> retrieveResultUpdate() throws ClassNotFoundException, SQLException;
 
 }
